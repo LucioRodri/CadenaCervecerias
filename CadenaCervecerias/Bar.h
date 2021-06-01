@@ -1,11 +1,12 @@
 #pragma once
 #include "cLocal.h"
 #include "cMesas.h"
+#include "cLista.h"
 class Bar :
     public cLocal
 {
     unsigned int CapCLientes;
-    cMesas* Mesas; //hacer con lista template?
+    cLista<cMesas>* Mesas; //hacer con lista template?
 public:
     Bar();
     ~Bar();

@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 #include "cLocal.h"
+#include "cLista.h"
 class Cerveceria
 {
-	cLocal* listaLocales; //hacer con una lista template?
+	cLista<cLocal>* listaLocales; //hacer con una lista template?
 	unsigned int MontoTotalFinal;
 public:
 	Cerveceria();

@@ -3,6 +3,8 @@
 #include <ctime>
 #include <string>
 #include "cEmpleado.h"
+#include "cLista.h"
+#include "cCerveza.h"
 using namespace std;
 class cCerveza;
 class cLocal
@@ -15,7 +17,8 @@ protected:
 	string Nombre;
 	unsigned int Numero;
 	string Ubicacion;
-	cEmpleado* listaEmpleados;//hacerlo con una lista template?
+	cLista<cEmpleado>* listaEmpleados;//hacerlo con una lista template?
+	cLista<cCerveza>* listaCervezas;
 public:
 	cLocal();
 	~cLocal();
