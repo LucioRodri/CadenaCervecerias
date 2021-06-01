@@ -1,229 +1,241 @@
 #pragma once
+#define NMAX 20
 #include <string>
 #include <iostream>
-
 using namespace std;
-
-#define TMAX 5
-template <class T1> //Indico que voy a hacer uso de Template y la clase T1 sera la generica
+template<class T>
 class cLista
 {
 protected:
-	T1** lista;
-	unsigned int ca, t;
-	bool eliminar;
+	T** vector;
+	unsigned int CA, TAM;
+	bool eliminar_lista;
 
 public:
-	cLista(bool eliminar = true, unsigned int T = TMAX);
-	~cLista(void);
+	cLista(unsigned int TAM = NMAX, bool eliminar_lista = true);
+	~cLista();
 
+	bool AgregarItem(T* item);
+	void operator+(T* item);
 
-	// Metodos Tipicos
+	T* Quitar(string clave);
+	T* QuitarenPos(unsigned int pos);
 
-	void Insertar(T1* P);			//Como ven, trabajamos constantemente con la clase "T1" que luego le asignaremos
-	T1* Quitar(T1* clave);		//la clase o tipo que queramos para la lista (en el main, al crear una lista)
-	void Eliminar(T1* clave);
-	void EliminarenPos(unsigned int);
-	T1* Buscar(T1* Clave);
-	unsigned int BuscarAtPos(T1* Clave);
-	string to_string();
-	void operator+(T1* p);
+	void Eliminar(string clave);
+	void operator-(string clave);
 
-	//friend ostream& operator<< <>(ostream& out, cLista& M);
-
-	T1* operator[](unsigned int pos)
-	{
-		if (pos < ca)
-			return lista[pos];
-		return NULL;
-	}
-
-	//T1* operator[](string clave)
-	//{
-	//	return Buscar(clave);
-	//}
-
+	void Eliminar(unsigned int pos);
 
 	void Listar();
+	T* BuscarItem(string clave);
+	T* operator [](unsigned int pos);
+	T* getItem(unsigned int pos);
+	string To_String();
 
+	void Redimensionalizar();
+	unsigned int getItemPos(string clave);
+	unsigned int getCA();
+	unsigned int getTAM();
+	//friend ostream& operator<<(ostream& os, const cListaT<T>& Lista);
 };
 
-template <class T1>
-ostream& operator<< (ostream& out, cLista<T1>& M) {
-	out << M.to_string() << endl;
-	return out;
+template<class T>
+unsigned int cLista<T>::getTAM()
+{
+	return TAM;
 }
 
-template <class T1>
-cLista<T1>::cLista(bool eliminar, unsigned int T)
+template<class T>
+unsigned int cLista<T>::getCA()
 {
-	t = T;
-	ca = 0;
-	this->eliminar = eliminar;
-	lista = new T1 * [T];
+	return CA;
+}
 
-	for (int i = 0; i < T; i++)
+template<class T>
+void cLista<T>::Redimensionalizar()
+{
+	//defino nuevo tamaño
+	TAM += 10;
+	//creo nuevo vector auxiliar
+	T** aux = new T * [TAM];
+
+	//copio los datos al nuevo vector y pongo el resto en NULL
+	for (int i = 0; i < TAM; i++)
 	{
-		lista[i] = NULL;
+		if (i < CA)
+			aux[i] = vector[i];
+		else
+			aux[i] = NULL;
 	}
+
+	//borro el vector anterior
+	delete[] vector;
+
+	//guardo mi nuevo vector
+	vector = aux;
+
 }
 
-template <class T1>
-cLista<T1>::~cLista(void)
+template<class T>
+cLista<T>::cLista(unsigned int TAM, bool eliminar_lista)
 {
-	if (lista != NULL) {
-		if (eliminar)
-		{
-			for (int i = 0; i < ca; i++)
+	vector = new T * [TAM];
+	for (unsigned int i = 0; i < TAM; i++)
+		vector[i] = NULL;
+
+	this->TAM = TAM;
+	this->eliminar_lista = eliminar_lista;
+	CA = 0;
+}
+
+template<class T>
+cLista<T>::~cLista()
+{
+	if (vector != NULL)
+	{
+		if (eliminar_lista) {
+			for (unsigned int i = 0; i < CA; i++)
 			{
-				if (lista[i] != NULL)
-					delete lista[i];
+				if (vector[i] != NULL)
+					delete vector[i];
 			}
 		}
-		delete[] lista;
-
+		delete[] vector;
 	}
-
-
 }
 
-// Metodos Tipicos
-template <class T1>
-void cLista<T1>::Insertar(T1* P)
+template<class T>
+void cLista<T>::Listar()
 {
-	if (P == NULL)//Revisamos que no sea NULL
-		throw new exception("\nIngrese un elemento valido!");
-	T1* aux = NULL;
-	try {
-		aux = Buscar(P);//Ya contemplamos el caso de que P=NULL
-	}
-	catch (exception* error)
-	{
-		aux = NULL;//No lo encontro
-		delete error;//Eliminamos la excepcion y sigue
-	}
-	if (aux != NULL)
-		throw new exception("\n¡El elemento esta repetido!"); //revisamos que el elemento no se encuentre repetido
-	if (ca < t)//Revisamos que no se supere la capacidad maxima
-	{
-		lista[ca++] = P;
-	}
+	for (unsigned int i = 0; i < CA; i++)
+		vector[i]->Imprimir();// imprimir
+}
+
+template<class T>
+bool cLista<T>::AgregarItem(T* item)
+{
+	T* i_f = BuscarItem(item->getclave());
+	if (i_f != NULL)
+		throw runtime_error("Ya se encuentra en la lista");
+
+	if (CA < TAM)
+		vector[CA++] = item;
 	else
-		throw new exception("\nSe ha superado el tamanio maximo de la lista!");
-}
-template <class T1>
-void cLista<T1>::operator+(T1* P)
-{
-	try {
-		Insertar(P);
-	}
-	catch (exception* error) {
-		throw error;
-	}
+		throw runtime_error("No hay tamaño suficiente para agregar el item");
+	return true;
 }
 
-template <class T1>
-T1* cLista<T1>::Quitar(T1* clave)
+
+template<class T>
+T* cLista<T>::Quitar(string clave)
 {
-	if (clave == NULL)//Revisamos que no pase un puntero NULL
-		throw new exception("\nElemento a quitar no valido, es null!");
+	unsigned int pos = getItemPos(clave);
+	T* aux = NULL;
 
-	unsigned int i;
-	try {//Revisamos que el elemento se encuentre en la lista
-		i = BuscarAtPos(clave);
-	}
-	catch (exception* error)
-	{
-		throw error;
-	}
-	//if (i >= ca)throw new exception("\nLa posicion no es valida!");//Revisamos que el elemento no supere la capacidad actual
-	if (i == TMAX + 1)
-		throw new exception("\nNo se encontro el elemento");
-	T1* aux = lista[i];
-
-	ca--;
-	for (unsigned int j = i; j < ca; j++)
-	{
-		lista[j] = lista[j + 1];
-
-	}
-
-	lista[ca] = NULL;
+	aux = QuitarenPos(pos);
 	return aux;
+}
+
+template<class T>
+T* cLista<T>::QuitarenPos(unsigned int pos) {
+
+	if (pos >= CA || pos < 0)
+		throw invalid_argument("Posicion invalida");
+
+	T* aux = vector[pos];
+
+	for (unsigned int i = pos; i < CA - 1; i++)
+		vector[i] = vector[i + 1];
+
+	vector[CA - 1] = NULL;
+	CA--;
+
+	return aux;
+}
 
 
-}
-template <class T1>
-void cLista<T1>::Eliminar(T1* clave)
-{
-	T1* aux;
-	try {
-		aux = Quitar(clave);
-	}
-	catch (exception* error)
-	{
-		throw error;
-	}
-	if (aux != NULL)
-		delete aux;
-}
-template <class T1>
-void cLista<T1>::EliminarenPos(unsigned int pos)
-{
-	if (pos >= ca)throw new exception("\nLa posicion no es valida!");
-	delete lista[pos];
-	ca--;
-	for (int j = pos; j < ca; j++)
-	{
-		lista[j] = lista[j + 1];
+template<class T>
+void cLista<T>::Eliminar(string clave) {
 
-	}
+	unsigned int pos = getItemPos(clave);
+	Eliminar(pos);
+}
 
-	lista[ca] = NULL;
-	return;
+
+template<class T>
+void cLista<T>::Eliminar(unsigned int pos) {
+
+	T* dato = NULL;
+	dato = QuitarenPos(pos);
+
+	if (dato != NULL)
+		delete dato;
 }
-template <class T1>
-T1* cLista<T1>::Buscar(T1* Clave)
+
+template<class T>
+T* cLista<T>::BuscarItem(string clave)
 {
-	unsigned int pos;
-	try {//Solo si el puntero es nulo
-		pos = BuscarAtPos(Clave);
-	}
-	catch (exception* error)
+	for (unsigned int i = 0; i < CA; i++)
 	{
-		throw error; //relanzamos la posible excepcion del metodo BuscarAtPos
+		if (*(vector[i]) == clave)
+			return vector[i];
 	}
-	if (pos < ca)
-		return lista[pos];
+	return NULL;
 }
-template <class T1>
-unsigned int cLista<T1>::BuscarAtPos(T1* Clave)
+
+template<class T>
+T* cLista<T>::getItem(unsigned int pos)
 {
-	if (Clave == NULL)
-		throw new exception("\nIngrese un elemento valido, diferente a NULL"); //revisamos que pueda buscar algo valido
-	for (int i = 0; i < ca; i++)
+	if (pos < CA && pos >= 0)
+		return vector[pos];
+	else
+		throw invalid_argument("Posición inválida");
+}
+
+template<class T>
+string cLista<T>::To_String()
+{
+	string Total;
+	for (unsigned int i = 0; i < CA; i++)
 	{
-		if (lista[i] == Clave)
+		Total += vector[i]->To_string();// imprimir
+	}
+	return Total;
+}
+
+template<class T>
+unsigned int cLista<T>::getItemPos(string clave)
+{
+	for (unsigned int i = 0; i < CA; i++)
+	{
+		if (*(vector[i]) == clave)
 			return i;
 	}
-	throw new exception("\nNo se encontro el elemento!"); //lanzamos una excepcion si se llega al final del bucle y no se encuentra
+	return -1;
 }
-template<class T1>
-inline string cLista<T1>::to_string()
+
+
+template <class T>
+void cLista<T>::operator+(T* item)
 {
-	string Lista_string = "";
-	for (int i = 0; i < ca; i++)
-	{
-		Lista_string = Lista_string + lista[i]->to_string() + "\n--------------------------------------------------------";
-	}
-	return Lista_string;
+	AgregarItem(item);
 }
-template <class T1>
-void cLista<T1>::Listar()
+
+template<class T>
+inline T* cLista<T>::operator[](unsigned int pos)
 {
-	for (int i = 0; i < ca; i++)
-	{
-		cout << lista[i];
-		cout << "----------------------------------------------" << endl;
-	}
+	return getItem(pos);
+}
+
+template<class T>
+void cLista<T>::operator-(string clave)
+{
+	Eliminar(clave);
+}
+
+template <class T>
+ostream& operator<<(ostream& os, cListaT<T>& Lista)
+{
+	os << Lista.To_String() << endl;
+	return os;
 }
