@@ -144,6 +144,7 @@
     <ClInclude Include="cEmpleado.h" />
     <ClInclude Include="cEncargado.h" />
     <ClInclude Include="Cerveceria.h" />
+    <ClInclude Include="cListaMesas.h" />
     <ClInclude Include="cLocal.h" />
     <ClInclude Include="cMesas.h" />
     <ClInclude Include="cMesero.h" />
@@ -155,6 +156,7 @@
     <ClCompile Include="cEmpleado.cpp" />
     <ClCompile Include="cEncargado.cpp" />
     <ClCompile Include="Cerveceria.cpp" />
+    <ClCompile Include="cListaMesas.cpp" />
     <ClCompile Include="cLocal.cpp" />
     <ClCompile Include="cMesas.cpp" />
     <ClCompile Include="cMesero.cpp" />

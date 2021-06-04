@@ -2,7 +2,7 @@
 #define NMAX 50
 Bar::Bar(tm* fecha, string nombre, string ubicacion, unsigned int capacidad, float litros , unsigned monto):cLocal(fecha,nombre,ubicacion,litros,monto)
 {
-	this->Mesas = new cLista<cMesas>[NMAX];
+	this->Mesas = new cListaMesas[NMAX];
 	CapCLientes = capacidad;
 }
 

@@ -6,6 +6,7 @@
 #include "cMesero.h"
 #include "cVendedor.h"
 #include "Cerveceria.h"
+#include "cListaMesas.h"
 
 using namespace std;//Podriamos cambiar numero por codigo en cLocal y hacerlo static
 int main() {
@@ -39,7 +40,7 @@ int main() {
 	}
 	//--------Probamos a eliminar a un vendedor y agregar el bar a la cadena--------
 	try {
-		*listaEmpleados - vendedor->getClave();
+		*listaEmpleados - vendedor->getclave();
 		*lista + bar;
 	}
 	catch (exception* error) {
@@ -62,7 +63,7 @@ int main() {
 	}
 	//--------Probamos a eliminar a un vendedor y agregar el punto de venta a la cadena--------
 	try {
-		*listaEmpleados - vendedor->getClave();
+		*listaEmpleados - vendedor->getclave();
 		*lista + puntoVenta;
 	}
 	catch (exception* error) {
@@ -71,7 +72,7 @@ int main() {
 	}
 
 	//Agrego las mesas del bar--------------------------------------------------
-	cLista<cMesas>* lMesas = bar->getListaMesas();
+	cListaMesas* lMesas = ((Bar*)bar)->getListaMesas();
 	cMesas* Mesa = new cMesas(20, true);
 	try {
 		*lMesas + Mesa;
@@ -87,6 +88,18 @@ int main() {
 		cout << error->what() << endl;
 		delete error;
 	}
+	Tick(lista);
 
+	/*
+	Podemos agregar un metodo polimorfico en cEmpleado que sirva para calcular los sueldos de cada clase de empleado?
+	O convendria hacerlo de otra forma?
+	*/
 	return 0;
+}
+
+void Tick(cLista<cLocal>* lista_locales) {
+	for (int i = 0; i < lista_locales->getCA(); i++)
+	{
+		lista_locales[0][i]->SimularCliente();
+	}
 }

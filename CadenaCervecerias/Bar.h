@@ -1,12 +1,11 @@
 #pragma once
 #include "cLocal.h"
-#include "cMesas.h"
-#include "cLista.h"
+#include "cListaMesas.h"
 class Bar :
     public cLocal
 {
     unsigned int CapCLientes;
-    cLista<cMesas>* Mesas; //hacer con lista template?
+    cListaMesas* Mesas; //hacer con lista template?
 public:
     Bar(tm* fecha, string nombre, string ubicacion, unsigned int capacidad = 100, float litros = 0, unsigned monto = 0);
     ~Bar();
@@ -14,7 +13,7 @@ public:
     void DistribuirEnMesas(unsigned int mesa);
     void SimularCliente();
     void VerificarMesas();
-    cLista<cMesas>* getListaMesas() { return Mesas; };
+    cListaMesas* getListaMesas() { return Mesas; };
     string to_string();
     void imprimir();
 };

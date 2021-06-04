@@ -13,7 +13,7 @@ protected:
 public:
 	cEmpleado(string cuit, tm* hora_entrada, tm* hora_salida, unsigned int horas_trabajadas = 0);
 	~cEmpleado();
-	string getClave() { return CUIT; };
+	string getclave() { return CUIT; };
 	void CalcularHorasTrabajadas();
 };
 

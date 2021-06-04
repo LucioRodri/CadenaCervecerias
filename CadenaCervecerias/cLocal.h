@@ -8,9 +8,11 @@
 using namespace std;
 class cCerveza;
 class cMesas;
+class cListaMesas;
 class cLocal
 {
 	friend class Cerveceria;
+	friend class cEmpleado; //el encargado va a usar actualizar suministros de esta clase
 protected:
 	tm* Fecha;
 	float LitroPorDia;
@@ -23,13 +25,13 @@ protected:
 public:
 	cLocal(tm* fecha, string nombre, string ubicacion, float litros = 0, unsigned monto = 0);
 	~cLocal();
-	virtual void ActualizarSuministros();
-	virtual void SimularCliente();
+	virtual void ActualizarSuministros()=0;
+	virtual void SimularCliente()=0;
 	void SumarMontoyLitros(cCerveza* cerveza);
-	void Tick();
+	//void Tick(); //hacerlo en el main, llama a simular cliente de la lista de locales
+	string getclave() { return Nombre; };
 	cLista<cEmpleado>* getListaEmpleados() { return listaEmpleados; };
 	cLista<cCerveza>* getListaCervezas() { return listaCervezas; };
-	virtual cLista<cMesas>* getListaMesas() = 0;
 	string to_string();
 	void imprimir();
 };

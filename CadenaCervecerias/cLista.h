@@ -24,7 +24,14 @@ public:
 	void Eliminar(string clave);
 	void operator-(string clave);
 
-	void Eliminar(unsigned int pos);
+	void Eliminar(unsigned int pos) {
+
+		T* dato = NULL;
+		dato = QuitarenPos(pos);
+
+		if (dato != NULL)
+			delete dato;
+	}
 
 	void Listar();
 	T* BuscarItem(string clave);
@@ -116,12 +123,12 @@ bool cLista<T>::AgregarItem(T* item)
 {
 	T* i_f = BuscarItem(item->getclave());
 	if (i_f != NULL)
-		throw runtime_error("Ya se encuentra en la lista");
+		throw new exception("Ya se encuentra en la lista");
 
 	if (CA < TAM)
 		vector[CA++] = item;
 	else
-		throw runtime_error("No hay tamaño suficiente para agregar el item");
+		throw new exception("No hay tamaño suficiente para agregar el item");
 	return true;
 }
 
@@ -140,7 +147,7 @@ template<class T>
 T* cLista<T>::QuitarenPos(unsigned int pos) {
 
 	if (pos >= CA || pos < 0)
-		throw invalid_argument("Posicion invalida");
+		throw new exception("Posicion invalida");
 
 	T* aux = vector[pos];
 
@@ -163,21 +170,11 @@ void cLista<T>::Eliminar(string clave) {
 
 
 template<class T>
-void cLista<T>::Eliminar(unsigned int pos) {
-
-	T* dato = NULL;
-	dato = QuitarenPos(pos);
-
-	if (dato != NULL)
-		delete dato;
-}
-
-template<class T>
 T* cLista<T>::BuscarItem(string clave)
 {
 	for (unsigned int i = 0; i < CA; i++)
 	{
-		if (*(vector[i]) == clave)
+		if (vector[i]->getclave() == clave)
 			return vector[i];
 	}
 	return NULL;
@@ -189,7 +186,7 @@ T* cLista<T>::getItem(unsigned int pos)
 	if (pos < CA && pos >= 0)
 		return vector[pos];
 	else
-		throw invalid_argument("Posición inválida");
+		throw new exception("Posición inválida");
 }
 
 template<class T>
@@ -208,7 +205,7 @@ unsigned int cLista<T>::getItemPos(string clave)
 {
 	for (unsigned int i = 0; i < CA; i++)
 	{
-		if (*(vector[i]) == clave)
+		if (vector[i]->getclave() == clave)
 			return i;
 	}
 	return -1;
@@ -224,7 +221,9 @@ void cLista<T>::operator+(T* item)
 template<class T>
 inline T* cLista<T>::operator[](unsigned int pos)
 {
-	return getItem(pos);
+	if (pos < CA)
+		return vector[pos];
+	return NULL;
 }
 
 template<class T>

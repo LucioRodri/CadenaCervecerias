@@ -10,7 +10,7 @@ cLocal::cLocal(tm* fecha, string nombre, string ubicacion, float litros, unsigne
 	listaCervezas = new cLista<cCerveza>[5];
 	Codigo++;
 }
-unsigned int Codigo=0;
+unsigned int cLocal::Codigo=0;
 
 cLocal::~cLocal()
 {
