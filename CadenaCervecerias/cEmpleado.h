@@ -11,7 +11,7 @@ protected:
 	tm* HoraSalida;
 	unsigned int HorasTrabajadas;
 public:
-	cEmpleado();
+	cEmpleado(string cuit, tm* hora_entrada, tm* hora_salida, unsigned int horas_trabajadas = 0);
 	~cEmpleado();
 	void CalcularHorasTrabajadas();
 };

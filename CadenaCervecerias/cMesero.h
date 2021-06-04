@@ -5,7 +5,7 @@ class cMesero :
 {
     static const unsigned int SalarioPorHora;
 public:
-    cMesero();
+    cMesero(string cuit, tm* hora_entrada, tm* hora_salida, unsigned int horas_trabajadas = 0);
     ~cMesero();
 };
 

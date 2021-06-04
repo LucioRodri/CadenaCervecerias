@@ -1,7 +1,8 @@
 #include "cMesas.h"
 
-cMesas::cMesas()
+cMesas::cMesas(unsigned int cantidad, bool limpio) : Capacidad(cantidad)
 {
+	Limpio = limpio;
 }
 
 cMesas::~cMesas()

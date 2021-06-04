@@ -1,11 +1,14 @@
 #include "Cerveceria.h"
 
-Cerveceria::Cerveceria()
+Cerveceria::Cerveceria(cLista<cLocal>* lista_locales, unsigned int monto)
 {
+	this->listaLocales = lista_locales;
+	this->MontoTotalFinal = monto;
 }
 
 Cerveceria::~Cerveceria()
 {
+	delete listaLocales;
 }
 
 void Cerveceria::CalcularMontoTotal()
