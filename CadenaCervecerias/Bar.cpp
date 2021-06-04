@@ -1,8 +1,8 @@
 #include "Bar.h"
-
-Bar::Bar(tm* fecha, string nombre, unsigned int numero, string ubicacion, cLista<cEmpleado>* lista_empleados, cLista<cCerveza>* lista_cerveza, cLista <cMesas>* lista_mesas, unsigned int capacidad, float litros , unsigned monto):cLocal(fecha,nombre,numero,ubicacion,lista_empleados,lista_cerveza,litros,monto)
+#define NMAX 50
+Bar::Bar(tm* fecha, string nombre, string ubicacion, unsigned int capacidad, float litros , unsigned monto):cLocal(fecha,nombre,ubicacion,litros,monto)
 {
-	this->Mesas = lista_mesas;
+	this->Mesas = new cLista<cMesas>[NMAX];
 	CapCLientes = capacidad;
 }
 

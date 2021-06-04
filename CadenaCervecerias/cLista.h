@@ -234,7 +234,7 @@ void cLista<T>::operator-(string clave)
 }
 
 template <class T>
-ostream& operator<<(ostream& os, cListaT<T>& Lista)
+ostream& operator<<(ostream& os, cLista<T>& Lista)
 {
 	os << Lista.To_String() << endl;
 	return os;

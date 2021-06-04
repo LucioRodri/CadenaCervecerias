@@ -1,8 +1,8 @@
 #include "Cerveceria.h"
-
-Cerveceria::Cerveceria(cLista<cLocal>* lista_locales, unsigned int monto)
+#define NMAX 100
+Cerveceria::Cerveceria(unsigned int monto)
 {
-	this->listaLocales = lista_locales;
+	this->listaLocales = new cLista<cLocal>[NMAX];
 	this->MontoTotalFinal = monto;
 }
 

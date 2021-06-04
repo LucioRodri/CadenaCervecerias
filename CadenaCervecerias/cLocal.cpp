@@ -1,14 +1,16 @@
 #include "cLocal.h"
+#define NMAX 200
 
-cLocal::cLocal(tm* fecha, string nombre, unsigned int numero, string ubicacion, cLista<cEmpleado>* lista_empleados, cLista<cCerveza>* lista_cerveza, float litros, unsigned monto)
+cLocal::cLocal(tm* fecha, string nombre, string ubicacion, float litros, unsigned monto)
 {
 	this->Fecha = fecha;
-	this->Nombre = nombre;
-	this->Numero = numero;
+	this->Nombre=nombre;
 	this->Ubicacion = ubicacion;
-	this->listaEmpleados = lista_empleados;
-	this->listaCervezas = lista_cerveza;
+	listaEmpleados =new cLista<cEmpleado>[NMAX];
+	listaCervezas = new cLista<cCerveza>[5];
+	Codigo++;
 }
+unsigned int Codigo=0;
 
 cLocal::~cLocal()
 {
