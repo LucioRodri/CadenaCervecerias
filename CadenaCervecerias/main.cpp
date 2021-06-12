@@ -10,6 +10,7 @@
 
 using namespace std;//Podriamos cambiar numero por codigo en cLocal y hacerlo static
 int main() {
+	srand(time(NULL));
 	time_t now = time(0);
 	tm* time = localtime(&now);
 	tm* times = time;
@@ -70,7 +71,6 @@ int main() {
 		cout << error->what() << endl;
 		delete error;
 	}
-
 	//Agrego las mesas del bar--------------------------------------------------
 	cListaMesas* lMesas = ((Bar*)bar)->getListaMesas();
 	cMesas* Mesa = new cMesas(20, true);

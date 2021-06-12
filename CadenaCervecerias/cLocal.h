@@ -5,6 +5,9 @@
 #include "cEmpleado.h"
 #include "cLista.h"
 #include "cCerveza.h"
+#include "cMesero.h"
+#include "cEncargado.h"
+#include "Funciones.h"
 using namespace std;
 class cCerveza;
 class cMesas;
@@ -12,7 +15,7 @@ class cListaMesas;
 class cLocal
 {
 	friend class Cerveceria;
-	friend class cEmpleado; //el encargado va a usar actualizar suministros de esta clase
+	friend class cEncargado; //el encargado va a usar actualizar suministros de esta clase
 protected:
 	tm* Fecha;
 	float LitroPorDia;
@@ -25,14 +28,16 @@ protected:
 public:
 	cLocal(tm* fecha, string nombre, string ubicacion, float litros = 0, unsigned monto = 0);
 	~cLocal();
-	virtual void ActualizarSuministros()=0;
+	//segun la cantidad de litros que se restaron por SumarMonto, actualiza la cantidad de barriles para cada elemento de la lista de cervezas
+	virtual void ActualizarSuministros();
 	virtual void SimularCliente()=0;
+	//resta para cada elemento de la lista de cervezas una cantidad de litros
 	void SumarMontoyLitros(cCerveza* cerveza);
 	//void Tick(); //hacerlo en el main, llama a simular cliente de la lista de locales
 	string getclave() { return Nombre; };
 	cLista<cEmpleado>* getListaEmpleados() { return listaEmpleados; };
 	cLista<cCerveza>* getListaCervezas() { return listaCervezas; };
-	string to_string();
+	friend ostream& operator<<(ostream& out, cLocal& L);
 	void imprimir();
+	void ActualizarFecha(tm* fecha);
 };
-

@@ -149,6 +149,7 @@
     <ClInclude Include="cMesas.h" />
     <ClInclude Include="cMesero.h" />
     <ClInclude Include="cVendedor.h" />
+    <ClInclude Include="Funciones.h" />
     <ClInclude Include="PuntoDeVenta.h" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
     <ClCompile Include="cMesas.cpp" />
     <ClCompile Include="cMesero.cpp" />
     <ClCompile Include="cVendedor.cpp" />
+    <ClCompile Include="Funciones.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PuntoDeVenta.cpp" />
   </ItemGroup>

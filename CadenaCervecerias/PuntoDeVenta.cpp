@@ -8,19 +8,13 @@ PuntoDeVenta::~PuntoDeVenta()
 {
 }
 
-void PuntoDeVenta::ActualizarSuministros()
-{
-}
-
 void PuntoDeVenta::SimularCliente()
 {
-}
-
-string PuntoDeVenta::to_string()
-{
-	return string();
-}
-
-void PuntoDeVenta::imprimir()
-{
+	int cant_clientes = random(1, 10);
+	int tipo_cerveza;
+	for (int i = 0; i < cant_clientes; i++) {
+		tipo_cerveza = random(0, 6);
+		SumarMontoyLitros(listaCervezas->getItem(tipo_cerveza));
+	}
+	ActualizarSuministros();
 }

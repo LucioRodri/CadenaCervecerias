@@ -1,9 +1,9 @@
 #include "Bar.h"
+#include "cMesero.h"
 #define NMAX 50
-Bar::Bar(tm* fecha, string nombre, string ubicacion, unsigned int capacidad, float litros , unsigned monto):cLocal(fecha,nombre,ubicacion,litros,monto)
+Bar::Bar(tm* fecha, string nombre, string ubicacion, float litros , unsigned monto):cLocal(fecha,nombre,ubicacion,litros,monto)
 {
 	this->Mesas = new cListaMesas[NMAX];
-	CapCLientes = capacidad;
 }
 
 Bar::~Bar()
@@ -11,26 +11,56 @@ Bar::~Bar()
 	delete Mesas;
 }
 
-void Bar::ActualizarSuministros()
-{
-}
 
-void Bar::DistribuirEnMesas(unsigned int mesa)
+void Bar::DistribuirEnMesas(unsigned int cant_grupos)
 {
+	if (Mesas->getCA() < cant_grupos)
+		throw new exception("No hay mesas suficientes");
+	for(int i=0;i<cant_grupos;i++)
+	{
+		Mesas->getItem(i)->EnsuciarMesa();
+	}
 }
 
 void Bar::SimularCliente()
 {
+	int cant_grupos=random(1, Mesas->getCA());
+	try
+	{
+		this->DistribuirEnMesas(cant_grupos);
+	}
+	catch(exception* error)
+	{
+		cout<<error->what()<<endl;//Borrar despues.Solo sirve para buscar errores, no tiene ninguna utilidad en el programa 
+		delete error;
+	}
+	unsigned int ClientesXGrupo;
+	unsigned int TipoCerveza;
+	for(int i=0;i<cant_grupos;i++)
+	{
+		ClientesXGrupo = random(2, 6);
+		for(int j=0;j<ClientesXGrupo;j++)
+		{
+			TipoCerverza
+		}
+	}
 }
 
 void Bar::VerificarMesas()
 {
+	int i;
+	cMesero* mesero = NULL;
+	for(i=0;i<listaEmpleados->getCA();i++)
+	{
+		mesero=dynamic_cast<cMesero*>(listaEmpleados->getItem(i));
+		if(mesero!=NULL)
+			break;
+	}
+	for (i = 0; i < Mesas->getCA(); i++)
+		mesero->LimpiarMesa(Mesas->getItem(i));
 }
 
-string Bar::to_string()
-{
-	return string();
-}
+
 
 void Bar::imprimir()
 {

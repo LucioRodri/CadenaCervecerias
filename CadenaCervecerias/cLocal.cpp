@@ -20,25 +20,44 @@ cLocal::~cLocal()
 
 void cLocal::ActualizarSuministros()
 {
-}
-
-void cLocal::SimularCliente()
-{
+	for (int i = 0; i < listaCervezas->getCA(); i++)
+		listaCervezas->getItem(i)->ConsumirBarriles();
 }
 
 void cLocal::SumarMontoyLitros(cCerveza* cerveza)
 {
+	cEncargado* ptr = NULL;
+	for (int i = 0; i < listaEmpleados->getCA(); i++)
+	{
+		ptr = dynamic_cast<cEncargado*>(listaEmpleados->getItem(i));
+		if (ptr != NULL)
+			break;
+	}
+	if (ptr != NULL)
+	{
+		ptr->Verificar();
+		MontoTotal += cerveza->getPrecioJarra();
+		LitroPorDia += 0.5;
+		cerveza->ConsumirJarra();
+	}
 }
 
-void cLocal::Tick()
+void cLocal::ActualizarFecha(tm* fecha)
 {
+	this->Fecha = fecha;
+	MontoTotal = 0;
+	LitroPorDia = 0;
 }
 
-string cLocal::to_string()
+
+ostream& operator<<(ostream& out, cLocal& L)
 {
-	return string();
+	out << "Nombre: " << L.Nombre << "\nCodigo: " << L.Codigo << "\nLitro vendidos: " << L.LitroPorDia
+		<< "\nMonto total: " << L.MontoTotal << "\nNombre: " << L.Nombre << "\nUbicacion: " << L.Ubicacion << endl;
+	return out;
 }
 
 void cLocal::imprimir()
 {
+	cout << this;
 }

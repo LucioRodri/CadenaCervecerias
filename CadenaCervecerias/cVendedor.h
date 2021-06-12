@@ -3,9 +3,11 @@
 class cVendedor :
     public cEmpleado
 {
-    static const unsigned int SalarioPorHora;
+    friend class cLocal;
+    static unsigned int SalarioPorHora;
+    void modificarSalario(unsigned int nuevo) { SalarioPorHora = nuevo; };
 public:
-    cVendedor(string cuit, tm* hora_entrada, tm* hora_salida, unsigned int horas_trabajadas = 0);
+    cVendedor(string cuit, tm* hora_entrada, tm* hora_salida, cLocal* local, unsigned int horas_trabajadas = 0);
     ~cVendedor();
 };
 

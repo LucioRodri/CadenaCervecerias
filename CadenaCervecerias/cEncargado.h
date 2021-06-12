@@ -4,11 +4,13 @@ class cCerveza;
 class cEncargado :
     public cEmpleado
 {
-    static const unsigned int SalarioPorHora;
+    friend class cLocal;
+    static unsigned int SalarioPorHora;
+    void modificarSalario(unsigned int nuevo) { SalarioPorHora = nuevo; };
 public:
-    cEncargado(string cuit, tm* hora_entrada, tm* hora_salida, unsigned int horas_trabajadas = 0);
+    cEncargado(string cuit, tm* hora_entrada, tm* hora_salida, cLocal* local, unsigned int horas_trabajadas = 0);
     ~cEncargado();
-    void SolicitarCerveza(cCerveza* cerveza, unsigned int cantidad);
-    void Verificar();
+    void SolicitarCerveza(cCerveza* cerveza, unsigned int cantidad);//PedirBarriles
+    void Verificar();//verifica que haya cerveza disponible
 };
 
