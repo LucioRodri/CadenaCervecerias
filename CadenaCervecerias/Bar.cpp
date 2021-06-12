@@ -41,9 +41,11 @@ void Bar::SimularCliente()
 		ClientesXGrupo = random(2, 6);
 		for(int j=0;j<ClientesXGrupo;j++)
 		{
-			TipoCerverza
+			TipoCerverza = random(2, 6);
+			SumarMontoyLitros(listaCervezas->getItem(TipoCerveza));
 		}
 	}
+	ActualizarSuministros();
 }
 
 void Bar::VerificarMesas()
@@ -60,8 +62,3 @@ void Bar::VerificarMesas()
 		mesero->LimpiarMesa(Mesas->getItem(i));
 }
 
-
-
-void Bar::imprimir()
-{
-}

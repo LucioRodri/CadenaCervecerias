@@ -12,6 +12,5 @@ public:
     void SimularCliente();
     void VerificarMesas();
     cListaMesas* getListaMesas() { return Mesas; };
-    void imprimir();
 };
 
