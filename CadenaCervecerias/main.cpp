@@ -127,8 +127,8 @@ int main() {
 	Podemos agregar un metodo polimorfico en cEmpleado que sirva para calcular los sueldos de cada clase de empleado?
 	O convendria hacerlo de otra forma?
 	*/
-	delete empresa;
-	return 0;
+	delete empresa;//Acordarse de cambiar la hora del Tick para que solo lo haga una vez
+	return 0;//Preguntar time
 }
 
 void Tick(cLista<cLocal>* lista_locales) {

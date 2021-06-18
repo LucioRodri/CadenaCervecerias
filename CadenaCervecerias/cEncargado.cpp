@@ -8,6 +8,7 @@ cEncargado::cEncargado(string cuit, tm* hora_entrada, tm* hora_salida, cLocal* l
 unsigned int cEncargado::SalarioPorHora = 1500;
 cEncargado::~cEncargado()
 {
+
 }
 
 void cEncargado::SolicitarCerveza(cCerveza* cerveza, unsigned int cantidad)

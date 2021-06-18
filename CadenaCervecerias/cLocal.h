@@ -28,7 +28,7 @@ protected:
 	cLista<cCerveza>* listaCervezas;
 public:
 	cLocal(tm* fecha, string nombre, string ubicacion, float litros = 0, unsigned monto = 0);
-	~cLocal();
+	virtual ~cLocal();
 	//segun la cantidad de litros que se restaron por SumarMonto, actualiza la cantidad de barriles para cada elemento de la lista de cervezas
 	virtual void ActualizarSuministros();
 	virtual void SimularCliente()=0;

@@ -7,6 +7,7 @@ cMesero::cMesero(string cuit, tm* hora_entrada, tm* hora_salida, cLocal* local, 
 unsigned int cMesero::SalarioPorHora = 500;
 cMesero::~cMesero()
 {
+
 }
 void cMesero::LimpiarMesa(cMesas* mesa)
 {
