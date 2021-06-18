@@ -1,6 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
 #pragma once
-#include <ctime>
 #include <string>
 #include "cEmpleado.h"
 #include "cLista.h"
@@ -18,10 +17,12 @@ class cLocal
 	friend class cEncargado; //el encargado va a usar actualizar suministros de esta clase
 protected:
 	tm* Fecha;
+	int HoraApertura, HoraCierre;
 	float LitroPorDia;
 	unsigned int MontoTotal;
 	string Nombre;
-	static unsigned int Codigo;
+	unsigned int Codigo;
+	static unsigned int Contador;
 	string Ubicacion;
 	cLista<cEmpleado>* listaEmpleados;//hacerlo con una lista template?
 	cLista<cCerveza>* listaCervezas;

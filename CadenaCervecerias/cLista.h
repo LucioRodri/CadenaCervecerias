@@ -27,7 +27,13 @@ public:
 	void Eliminar(unsigned int pos) {
 
 		T* dato = NULL;
-		dato = QuitarenPos(pos);
+		try {
+			dato = QuitarenPos(pos);
+		}
+		catch(exception* error)
+		{
+			throw error;
+		}
 
 		if (dato != NULL)
 			delete dato;
@@ -136,10 +142,22 @@ bool cLista<T>::AgregarItem(T* item)
 template<class T>
 T* cLista<T>::Quitar(string clave)
 {
-	unsigned int pos = getItemPos(clave);
+	unsigned int pos;
+	try{
+	pos= getItemPos(clave);
+	}
+	catch(exception* error)
+	{
+		throw error;
+	}
 	T* aux = NULL;
 
-	aux = QuitarenPos(pos);
+	try {
+		aux = QuitarenPos(pos);
+	}
+	catch (exception* error) {
+		throw error;
+	}
 	return aux;
 }
 
@@ -163,9 +181,13 @@ T* cLista<T>::QuitarenPos(unsigned int pos) {
 
 template<class T>
 void cLista<T>::Eliminar(string clave) {
-
-	unsigned int pos = getItemPos(clave);
-	Eliminar(pos);
+	try {
+		unsigned int pos = getItemPos(clave);
+		Eliminar(pos);
+	}
+	catch (exception* error) {
+		throw error;
+	}
 }
 
 

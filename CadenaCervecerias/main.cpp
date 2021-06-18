@@ -4,11 +4,17 @@
 #include <ctime>
 #include "cEncargado.h"
 #include "cMesero.h"
-#include "cVendedor.h"
+#include "cVendedor.h" 
 #include "Cerveceria.h"
 #include "cListaMesas.h"
+#include <thread>
+#include <chrono>
+using std::this_thread::sleep_for;
 
 using namespace std;//Podriamos cambiar numero por codigo en cLocal y hacerlo static
+void Tick(cLista<cLocal>* lista_locales);
+ostream& operator<<(ostream& out, Cerveceria& C);
+
 int main() {
 	srand(time(NULL));
 	time_t now = time(0);
@@ -21,10 +27,11 @@ int main() {
 	//--------Creamos los punteros que vamos a usar para la simulacion y prueba--------
 	cLocal* bar = new Bar(time, "La Taberna de Moe", "Wakanda");
 	cLocal* puntoVenta = new PuntoDeVenta(time, "Express", "Argentina");
-	cEmpleado* encargado = new cEncargado("27-28033514-8", time, times);
-	cEmpleado* vendedor = new cVendedor("47-321231232-5", time, times);
-	cEmpleado* mesero = new cMesero("42-89578425-2", time, times);
+	cEmpleado* encargado = new cEncargado("27-28033514-8", time, times,bar);
+	cEmpleado* vendedor = new cVendedor("47-321231232-5", time, times, bar);
+	cEmpleado* mesero = new cMesero("42-89578425-2", time, times, bar);
 	Cerveceria* empresa = new Cerveceria();
+	cCerveza* cerveza1 = new cCerveza(4, 50, "Rubia");
 	//--------Asignamos punteros a la listas para poder modificar este atributo privado--------
 	cLista<cLocal>* lista = empresa->getLista();
 	cLista<cEmpleado>* listaEmpleados = bar->getListaEmpleados();
@@ -33,7 +40,7 @@ int main() {
 		*listaEmpleados + encargado;
 		*listaEmpleados + vendedor;
 		*listaEmpleados + mesero;
-		*listaEmpleados + new cVendedor("32-432332531-3", time, times);
+		*listaEmpleados + new cVendedor("32-432332531-3", time, times, bar);
 	}
 	catch(exception* error){
 		cout << error->what() << endl;
@@ -49,14 +56,13 @@ int main() {
 		delete error;
 	}
 	//--------Apuntamos los punteros creados para agregar nuevos empleados al punto de venta--------
-	encargado = new cEncargado("56-26043864-4", time, times);
-	vendedor = new cVendedor("52-23276412-1", time, times);
-	mesero = new cMesero("13-14135512-3", time, times);
+	encargado = new cEncargado("56-26043864-4", time, times, puntoVenta);
+	vendedor = new cVendedor("52-23276412-1", time, times, puntoVenta);
 	listaEmpleados = puntoVenta->getListaEmpleados();
 	try {
 		*listaEmpleados + encargado;
 		*listaEmpleados + vendedor;
-		*listaEmpleados + new cVendedor("21-344331521-3", time, times);
+		*listaEmpleados + new cVendedor("21-344331521-3", time, times, puntoVenta);
 	}
 	catch (exception* error) {
 		cout << error->what() << endl;
@@ -88,18 +94,86 @@ int main() {
 		cout << error->what() << endl;
 		delete error;
 	}
+	//Agregamos la cerveza a la lista
+	*(bar->getListaCervezas()) + cerveza1;
+	cerveza1 = new cCerveza(3,30,"Colorada");
+	*(bar->getListaCervezas()) + cerveza1;
+	cerveza1 = new cCerveza(2, 25, "Negra");
+	*(puntoVenta->getListaCervezas()) + cerveza1;
+	/*try {
+		*lista + puntoVenta;
+	}
+	catch (exception* error) {
+		cout << error->what();
+		delete error;
+	}*/
+	time->tm_hour = 9;
+	for (int i = 0; i < bar->getListaEmpleados()->getCA(); i++)
+		bar->getListaEmpleados()->getItem(i)->setEntrada(time);
+	for (int i = 0; i < puntoVenta->getListaEmpleados()->getCA(); i++)
+		puntoVenta->getListaEmpleados()->getItem(i)->setEntrada(time);
 	Tick(lista);
-
+	cout << *empresa;
+	time->tm_hour = 17;
+	for (int i = 0; i < bar->getListaEmpleados()->getCA(); i++) {
+		bar->getListaEmpleados()->getItem(i)->setSalida(time);
+		bar->getListaEmpleados()->getItem(i)->CalcularHorasTrabajadas();
+	}
+	for (int i = 0; i < puntoVenta->getListaEmpleados()->getCA(); i++) {
+		puntoVenta->getListaEmpleados()->getItem(i)->setSalida(time);
+		puntoVenta->getListaEmpleados()->getItem(i)->CalcularHorasTrabajadas();
+	}
 	/*
 	Podemos agregar un metodo polimorfico en cEmpleado que sirva para calcular los sueldos de cada clase de empleado?
 	O convendria hacerlo de otra forma?
 	*/
+	delete empresa;
 	return 0;
 }
 
 void Tick(cLista<cLocal>* lista_locales) {
-	for (int i = 0; i < lista_locales->getCA(); i++)
+	/*int segundos = 0, minutos = 0, horas = 0;
+	time_t now = time(0);
+	tm* time = localtime(&now);
+	if (time->tm_hour >= 8 && time->tm_hour < 17) { //nos fijamos que este en la hora de trabajo
+		while (1) {
+			clock_t t = clock();
+			if (clock() - t / CLOCKS_PER_SEC == 1)
+				segundos++;
+			if (segundos == 60)
+				minutos++;
+			if (minutos == 60)
+				horas++;
+			if (horas == 1)
+				break;
+		}
+		for (int i = 0; i < lista_locales->getCA(); i++)
+		{
+			lista_locales[0][i]->SimularCliente();
+		}
+		do {
+			Tick(lista_locales);
+		} while (time->tm_hour < 17);
+	}*/
+	time_t now = time(0);
+	tm* time = localtime(&now);
+	do {
+		for (int i = 0; i < lista_locales->getCA(); i++)
+			lista_locales->getItem(i)->SimularCliente();
+		sleep_for(1s); //lo pusimos en 10 segundos en vez de 1 hora para probarlo
+		time = localtime(&now);
+	} while (time->tm_hour != 11);
+}
+ostream& operator<<(ostream& out, Cerveceria& C)
+{
+	unsigned int monto;
+	for (int i = 0; i < C.listaLocales->getCA(); i++)
 	{
-		lista_locales[0][i]->SimularCliente();
+		out << *(C.listaLocales->getItem(i));
+		out << "\n-----------------------------------------------------------------\n";
 	}
+	C.CalcularMontoTotal();
+	monto = C.getMontoTotal();
+	out << monto;
+	return out;
 }

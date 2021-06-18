@@ -4,13 +4,16 @@
 cLocal::cLocal(tm* fecha, string nombre, string ubicacion, float litros, unsigned monto)
 {
 	this->Fecha = fecha;
+	this->HoraApertura = 9;
+	this->HoraCierre = 17;
 	this->Nombre=nombre;
 	this->Ubicacion = ubicacion;
 	listaEmpleados =new cLista<cEmpleado>[NMAX];
 	listaCervezas = new cLista<cCerveza>[5];
-	Codigo++;
+	this->Codigo = Contador;
+	Contador++;
 }
-unsigned int cLocal::Codigo=0;
+unsigned int cLocal::Contador=1;
 
 cLocal::~cLocal()
 {
@@ -59,5 +62,5 @@ ostream& operator<<(ostream& out, cLocal& L)
 
 void cLocal::imprimir()
 {
-	cout << this;
+	cout << *this;
 }

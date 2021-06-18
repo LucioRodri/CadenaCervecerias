@@ -2,6 +2,7 @@
 
 cEncargado::cEncargado(string cuit, tm* hora_entrada, tm* hora_salida, cLocal* local, unsigned int horas_trabajadas):cEmpleado(cuit,hora_entrada, hora_salida,local,horas_trabajadas)
 {
+	this->EstadodeAnimo="Feliz";
 }
 
 unsigned int cEncargado::SalarioPorHora = 1500;
@@ -22,3 +23,17 @@ void cEncargado::Verificar()
 			SolicitarCerveza(local_actual->listaCervezas->getItem(i), 5);//pasa por parametro el elemento cerveza con cantidad baja
 	}
 }
+ostream& operator<<(ostream& out, cEncargado& E)
+{
+	out << (cEmpleado&)E;
+	out << E.getEstadoAnimo() << endl;
+	return out;
+}
+
+/*istream& operator>>(istream& in, cEncargado& M)
+{
+	// TODO: insert return statement here
+	string animo;
+	in >> (cEmpleado&)M;
+	cout << "\nIngrese su estado de animo: " << endl;
+}*/

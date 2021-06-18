@@ -2,15 +2,17 @@
 
 cEmpleado::cEmpleado(string cuit, tm* hora_entrada, tm* hora_salida, cLocal* local, unsigned int horas_trabajadas)
 {
-	this->CUIT=cuit;
+	this->CUIT = cuit;
 	this->HoraEntrada = hora_entrada;
 	this->HoraSalida = hora_salida;
 	this->HorasTrabajadas = horas_trabajadas;
-	this->loca_actual = local;
+	this->local_actual = local;
+	this->Presente = false;
 }
  
 cEmpleado::~cEmpleado()
 {
+
 }
 
 void cEmpleado::CalcularHorasTrabajadas()//Le pago por hora, no tengo en cuenta los minutos
@@ -21,7 +23,7 @@ void cEmpleado::CalcularHorasTrabajadas()//Le pago por hora, no tengo en cuenta 
 		{
 			if (HoraEntrada->tm_mday == HoraSalida->tm_mday)//Entro y salio el mismo dia
 				HorasTrabajadas = HoraSalida->tm_hour - HoraEntrada->tm_hour;
-			else//Salio al dia siguiente
+			else if(HoraEntrada->tm_mday == HoraSalida->tm_mday+1)//Salio al dia siguiente
 			{
 				HorasTrabajadas = 24 - HoraEntrada->tm_hour + HoraSalida->tm_hour;
 			}
@@ -48,5 +50,21 @@ void cEmpleado::CalcularHorasTrabajadas()//Le pago por hora, no tengo en cuenta 
 
 void cEmpleado::Cobrar()
 {
-	HorasTrabajadas = 0;
+	this->HorasTrabajadas = 0;
+}
+
+ostream& operator<<(ostream& out, cEmpleado& M)
+{
+	out << "\nCuit: " + M.CUIT + "\nHoras trabajadas: " + std::to_string(M.HorasTrabajadas);
+	return out;
+}
+
+istream& operator>>(istream& in, cEmpleado& M)
+{
+	// TODO: insert return statement here
+	string cuit;
+	cout << "\nIngrese su CUIT: " << endl;
+	in >> cuit;
+	M.CUIT = cuit;
+	return in;
 }

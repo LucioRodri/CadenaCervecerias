@@ -41,7 +41,7 @@ void Bar::SimularCliente()
 		ClientesXGrupo = random(2, 6);
 		for(int j=0;j<ClientesXGrupo;j++)
 		{
-			TipoCerverza = random(2, 6);
+			TipoCerveza = random(0, listaCervezas->getCA());
 			SumarMontoyLitros(listaCervezas->getItem(TipoCerveza));
 		}
 	}
@@ -55,9 +55,15 @@ void Bar::VerificarMesas()
 	for(i=0;i<listaEmpleados->getCA();i++)
 	{
 		mesero=dynamic_cast<cMesero*>(listaEmpleados->getItem(i));
-		if(mesero!=NULL)
+		if(mesero!=NULL && mesero->getPresente()==true)
 			break;
+		else
+		{
+			mesero = NULL;
+		}
 	}
+	if (mesero == NULL)
+		throw new exception("No hay meseros trabajando");
 	for (i = 0; i < Mesas->getCA(); i++)
 		mesero->LimpiarMesa(Mesas->getItem(i));
 }
