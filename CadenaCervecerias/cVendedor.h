@@ -12,5 +12,6 @@ public:
     ~cVendedor();
     friend ostream& operator<<(ostream& out, cVendedor& V);
     friend istream& operator>>(istream& in, cVendedor& V);
+    //friend cVendedor& operator=(const cVendedor& otro);
 };
 

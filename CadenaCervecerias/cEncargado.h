@@ -14,7 +14,7 @@ public:
     void SolicitarCerveza(cCerveza* cerveza, unsigned int cantidad);//PedirBarriles
     void Verificar();//verifica que haya cerveza disponible
     //friend ostream& operator<<(ostream& out, cEncargado& E);
-   // friend istream& operator>>(istream& in, cEncargado& M);
+    friend istream& operator>>(istream& in, cEncargado& M);
     string getEstadoAnimo(){return EstadodeAnimo;};
 };
 ostream& operator<<(ostream& out, cEncargado& E);

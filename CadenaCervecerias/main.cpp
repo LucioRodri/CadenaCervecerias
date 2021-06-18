@@ -79,14 +79,14 @@ int main() {
 	}
 	//Agrego las mesas del bar--------------------------------------------------
 	cListaMesas* lMesas = ((Bar*)bar)->getListaMesas();
-	cMesas* Mesa = new cMesas(20, true);
+	cMesas* Mesa = new cMesas(true);
 	try {
 		*lMesas + Mesa;
 		Mesa = new cMesas();
 		*lMesas + Mesa;
-		Mesa = new cMesas(6);
+		Mesa = new cMesas();
 		*lMesas + Mesa;
-		Mesa = new cMesas(10);
+		Mesa = new cMesas();
 		*lMesas + Mesa;
 	}
 	catch(exception* error)
@@ -116,17 +116,23 @@ int main() {
 	cout << *empresa;
 	time->tm_hour = 17;
 	for (int i = 0; i < bar->getListaEmpleados()->getCA(); i++) {
-		bar->getListaEmpleados()->getItem(i)->setSalida(time);
+		bar->getListaEmpleados()->getItem(i)->setEntrada(time);
 		bar->getListaEmpleados()->getItem(i)->CalcularHorasTrabajadas();
 	}
 	for (int i = 0; i < puntoVenta->getListaEmpleados()->getCA(); i++) {
-		puntoVenta->getListaEmpleados()->getItem(i)->setSalida(time);
+		puntoVenta->getListaEmpleados()->getItem(i)->setEntrada(time);
 		puntoVenta->getListaEmpleados()->getItem(i)->CalcularHorasTrabajadas();
 	}
+	//(bar->getListaEmpleados())[1];Probar despues
 	/*
 	Podemos agregar un metodo polimorfico en cEmpleado que sirva para calcular los sueldos de cada clase de empleado?
 	O convendria hacerlo de otra forma?
 	*/
+	//------------------------------Prueba-----------------------------//
+	//cLista<int>* Numeros = new cLista<int>();
+	//delete Numeros;
+	bar = new Bar(time, "Nombre raro", "Malta");
+	delete bar;
 	delete empresa;//Acordarse de cambiar la hora del Tick para que solo lo haga una vez
 	return 0;//Preguntar time
 }
@@ -162,7 +168,7 @@ void Tick(cLista<cLocal>* lista_locales) {
 			lista_locales->getItem(i)->SimularCliente();
 		sleep_for(1s); //lo pusimos en 10 segundos en vez de 1 hora para probarlo
 		time = localtime(&now);
-	} while (time->tm_hour != 12);
+	} while (time->tm_hour != 14);
 }
 ostream& operator<<(ostream& out, Cerveceria& C)
 {
@@ -177,3 +183,4 @@ ostream& operator<<(ostream& out, Cerveceria& C)
 	out << monto;
 	return out;
 }
+

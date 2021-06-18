@@ -2,7 +2,7 @@
 #define NMAX 100
 Cerveceria::Cerveceria()
 {
-	this->listaLocales = new cLista<cLocal>[NMAX];
+	this->listaLocales = new cLista<cLocal>(NMAX);
 	this->MontoTotalFinal = 0;
 }
 

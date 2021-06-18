@@ -27,7 +27,6 @@ public:
 	unsigned int getItemPos(cMesas* mesa);
 	unsigned int getCA();
 	unsigned int getTAM();
-
-
+	cListaMesas& operator++();
 };
 

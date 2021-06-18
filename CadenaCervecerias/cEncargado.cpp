@@ -31,10 +31,13 @@ ostream& operator<<(ostream& out, cEncargado& E)
 	return out;
 }
 
-/*istream& operator>>(istream& in, cEncargado& M)
+istream& operator>>(istream& in, cEncargado& M)
 {
 	// TODO: insert return statement here
 	string animo;
 	in >> (cEmpleado&)M;
 	cout << "\nIngrese su estado de animo: " << endl;
-}*/
+	in >> animo;
+	M.EstadodeAnimo	= animo;
+	return in;
+}
