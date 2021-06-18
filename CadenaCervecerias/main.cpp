@@ -162,7 +162,7 @@ void Tick(cLista<cLocal>* lista_locales) {
 			lista_locales->getItem(i)->SimularCliente();
 		sleep_for(1s); //lo pusimos en 10 segundos en vez de 1 hora para probarlo
 		time = localtime(&now);
-	} while (time->tm_hour != 11);
+	} while (time->tm_hour != 12);
 }
 ostream& operator<<(ostream& out, Cerveceria& C)
 {
