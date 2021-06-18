@@ -7,6 +7,7 @@ cVendedor::cVendedor(string cuit, tm* hora_entrada, tm* hora_salida, cLocal* loc
 unsigned int cVendedor::SalarioPorHora = 1000;
 cVendedor::~cVendedor()
 {
+
 }
 ostream& operator<<(ostream& out, cVendedor& V)
 {

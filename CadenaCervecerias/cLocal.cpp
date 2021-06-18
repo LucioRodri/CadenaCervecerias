@@ -17,8 +17,8 @@ unsigned int cLocal::Contador=1;
 
 cLocal::~cLocal()
 {
-	delete listaEmpleados;
 	delete listaCervezas;
+	delete listaEmpleados;
 }
 
 void cLocal::ActualizarSuministros()
