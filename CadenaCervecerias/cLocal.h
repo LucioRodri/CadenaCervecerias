@@ -8,7 +8,7 @@
 #include "cEncargado.h"
 #include "Funciones.h"
 using namespace std;
-class cCerveza;
+
 class cMesas;
 class cListaMesas;
 class cLocal

@@ -3,7 +3,7 @@
 #define NMAX 50
 Bar::Bar(tm* fecha, string nombre, string ubicacion, float litros , unsigned monto):cLocal(fecha,nombre,ubicacion,litros,monto)
 {
-	this->Mesas = new cListaMesas[NMAX];
+	this->Mesas = new cListaMesas(NMAX);
 }
 
 Bar::~Bar()
@@ -55,7 +55,7 @@ void Bar::VerificarMesas()
 	for(i=0;i<listaEmpleados->getCA();i++)
 	{
 		mesero=dynamic_cast<cMesero*>(listaEmpleados->getItem(i));
-		if(mesero!=NULL && mesero->getPresente()==true)
+		if(mesero!=NULL && mesero->getPresente())
 			break;
 		else
 		{

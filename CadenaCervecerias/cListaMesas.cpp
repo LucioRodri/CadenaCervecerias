@@ -132,3 +132,9 @@ unsigned int cListaMesas::getTAM()
 {
 	return TAM;
 }
+
+cListaMesas& cListaMesas::operator++()
+{
+	this->AgregarItem(new cMesas());
+	return *this;
+}

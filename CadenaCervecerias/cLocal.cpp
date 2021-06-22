@@ -8,8 +8,8 @@ cLocal::cLocal(tm* fecha, string nombre, string ubicacion, float litros, unsigne
 	this->HoraCierre = 17;
 	this->Nombre=nombre;
 	this->Ubicacion = ubicacion;
-	listaEmpleados =new cLista<cEmpleado>[NMAX];
-	listaCervezas = new cLista<cCerveza>[5];
+	listaEmpleados =new cLista<cEmpleado>(NMAX);
+	listaCervezas = new cLista<cCerveza>(5);
 	this->Codigo = Contador;
 	Contador++;
 }

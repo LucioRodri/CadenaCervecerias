@@ -24,3 +24,8 @@ istream& operator>>(istream& in, cVendedor& V)
 	V.AniosAntiguedad = Anios;
 	return in;
 }
+
+/*cVendedor& operator=(const cVendedor& otro)
+{
+	return otro;
+}*/
