@@ -195,7 +195,7 @@ void Tick(cLista<cLocal>* lista_locales) {
 			{
 				cout << error->what()<<endl;
 				delete error;
-				(*lista_locales)[i]->setAbierto(false);//Cierro el local si me quedo sin suministros y el gerente no esta presente
+				(*lista_locales)[i]->setAbierto(false);//Cierro el local si me quedo sin suministros y el gerente no esta presente o no hay meseros(bar)
 			}
 		}
 		sleep_for(1s); //lo pusimos en 10 segundos en vez de 1 hora para probarlo

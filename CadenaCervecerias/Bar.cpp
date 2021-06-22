@@ -45,7 +45,15 @@ void Bar::SimularCliente()
 			SumarMontoyLitros(listaCervezas->getItem(TipoCerveza));
 		}
 	}
-	ActualizarSuministros();
+	try
+	{
+		this->VerificarMesas();
+	}
+	catch (exception* error)
+	{
+		throw error;
+	}
+	this->ActualizarSuministros();
 }
 
 void Bar::VerificarMesas()
