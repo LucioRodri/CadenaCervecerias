@@ -31,3 +31,5 @@ public:
 };
 bool operator==(tm& T1, tm& T2);
 bool operator!=(tm& T1, tm& T2);
+bool operator<(tm& derecha, tm& izquierda);
+bool operator>(tm& derecha, tm& izquierda);

@@ -230,6 +230,7 @@ unsigned int cLista<T>::getItemPos(string clave)
 		if (vector[i]->getclave() == clave)
 			return i;
 	}
+
 	return -1;
 }
 

@@ -47,9 +47,11 @@ void cLocal::SumarMontoyLitros(cCerveza* cerveza)
 
 void cLocal::ActualizarFecha(tm* fecha)
 {
-	this->Fecha = fecha;
-	MontoTotal = 0;
-	LitroPorDia = 0;
+	if (fecha != NULL) {
+		this->Fecha = fecha;
+		MontoTotal = 0;
+		LitroPorDia = 0;
+	}
 }
 
 

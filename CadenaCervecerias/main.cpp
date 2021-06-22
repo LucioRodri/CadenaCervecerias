@@ -108,20 +108,34 @@ int main() {
 		delete error;
 	}*/
 	time->tm_hour = 9;
-	for (int i = 0; i < bar->getListaEmpleados()->getCA(); i++)
-		bar->getListaEmpleados()->getItem(i)->setEntrada(time);
-	for (int i = 0; i < puntoVenta->getListaEmpleados()->getCA(); i++)
-		puntoVenta->getListaEmpleados()->getItem(i)->setEntrada(time);
+	try {
+		for (int i = 0; i < bar->getListaEmpleados()->getCA(); i++)
+			bar->getListaEmpleados()->getItem(i)->setEntrada(time);
+		for (int i = 0; i < puntoVenta->getListaEmpleados()->getCA(); i++)
+			puntoVenta->getListaEmpleados()->getItem(i)->setEntrada(time);
+	}
+	catch (exception* ex) {
+		string error = ex->what();
+		delete ex;
+		cout << error << endl;
+	}
 	Tick(lista);
 	cout << *empresa;
 	time->tm_hour = 17;
-	for (int i = 0; i < bar->getListaEmpleados()->getCA(); i++) {
-		bar->getListaEmpleados()->getItem(i)->setEntrada(time);
-		bar->getListaEmpleados()->getItem(i)->CalcularHorasTrabajadas();
+	try {
+		for (int i = 0; i < bar->getListaEmpleados()->getCA(); i++) {
+			bar->getListaEmpleados()->getItem(i)->setEntrada(time);
+			bar->getListaEmpleados()->getItem(i)->CalcularHorasTrabajadas();
+		}
+		for (int i = 0; i < puntoVenta->getListaEmpleados()->getCA(); i++) {
+			puntoVenta->getListaEmpleados()->getItem(i)->setEntrada(time);
+			puntoVenta->getListaEmpleados()->getItem(i)->CalcularHorasTrabajadas();
+		}
 	}
-	for (int i = 0; i < puntoVenta->getListaEmpleados()->getCA(); i++) {
-		puntoVenta->getListaEmpleados()->getItem(i)->setEntrada(time);
-		puntoVenta->getListaEmpleados()->getItem(i)->CalcularHorasTrabajadas();
+	catch (exception* ex) {
+		string error = ex->what();
+		delete ex;
+		cout << error << endl;
 	}
 	//(bar->getListaEmpleados())[1];Probar despues
 	/*
@@ -168,15 +182,22 @@ void Tick(cLista<cLocal>* lista_locales) {
 			lista_locales->getItem(i)->SimularCliente();
 		sleep_for(1s); //lo pusimos en 10 segundos en vez de 1 hora para probarlo
 		time = localtime(&now);
-	} while (time->tm_hour != 14);
+	} while (time->tm_hour != 22);
 }
 ostream& operator<<(ostream& out, Cerveceria& C)
 {
 	unsigned int monto;
 	for (int i = 0; i < C.listaLocales->getCA(); i++)
 	{
-		out << *(C.listaLocales->getItem(i));
-		out << "\n-----------------------------------------------------------------\n";
+		try {
+			out << *(C.listaLocales->getItem(i));
+			out << "\n-----------------------------------------------------------------\n";
+		}
+		catch (exception* ex) {
+			string error = ex->what();
+			delete ex;
+			cout << error << endl;
+		}
 	}
 	C.CalcularMontoTotal();
 	monto = C.getMontoTotal();
