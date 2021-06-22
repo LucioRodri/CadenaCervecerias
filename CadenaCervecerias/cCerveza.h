@@ -15,7 +15,9 @@ public:
 	void setBarriles(unsigned int cantidad) { CantidadBarriles += cantidad; };
 	unsigned int getCantBarriles() { return CantidadBarriles; };
 	unsigned int getPrecioJarra()  {  return PrecioJarra;  };
+	float getCantLitros() { return CantidadLitros; };
 	string getclave() { return Tipo; };
 	void ConsumirBarriles() { CantidadBarriles = (unsigned int)CantidadLitros % 20 + 1; };
 	void ConsumirJarra() { CantidadLitros -= 0.5; };
+	cCerveza& operator=(const cCerveza& C);
 };

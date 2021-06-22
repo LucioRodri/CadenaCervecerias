@@ -147,7 +147,6 @@ int main() {
 	O convendria hacerlo de otra forma?
 	*/
 	//------------------------------Prueba-----------------------------//
-	bool Algo = (*(empresa->getLista()))[1]->getAbierto();
 	//cLista<int>* Numeros = new cLista<int>();
 	//delete Numeros;
 	bar = new Bar(time, "Nombre raro", "Malta");
