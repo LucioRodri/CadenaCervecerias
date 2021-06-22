@@ -11,6 +11,7 @@ cLocal::cLocal(tm* fecha, string nombre, string ubicacion, float litros, unsigne
 	listaEmpleados =new cLista<cEmpleado>(NMAX);
 	listaCervezas = new cLista<cCerveza>(5);
 	this->Codigo = Contador;
+	this->Abierto = false;
 	Contador++;
 }
 unsigned int cLocal::Contador=1;
@@ -42,6 +43,10 @@ void cLocal::SumarMontoyLitros(cCerveza* cerveza)
 		MontoTotal += cerveza->getPrecioJarra();
 		LitroPorDia += 0.5;
 		cerveza->ConsumirJarra();
+	}
+	else
+	{
+		throw new exception("No hay un encargado y nos quedamos sin cerveza");
 	}
 }
 

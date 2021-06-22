@@ -3,13 +3,14 @@
 #include <string>
 #include <ctime>
 #include <iostream>
+#include "Funciones.h"
 
 using namespace std;
 class cLocal;
 class cEmpleado
 {
 protected:
-	const string CUIT;
+	const string CUIT;//Atributo constante
 	string Nombre;
 	tm* HoraEntrada;
 	tm* HoraSalida;
@@ -25,11 +26,11 @@ public:
 	void CalcularHorasTrabajadas();
 	void Cobrar();//Resetea HorasTrabajadas cuando inicia el mes
 	bool getPresente() { return Presente; };
-	friend ostream& operator<<(ostream& out, cEmpleado& M);
+	friend ostream& operator<<(ostream& out, cEmpleado& M);//Friend. Sobrecarga del padre
 	friend istream& operator>>(istream& in, cEmpleado& M);
 	//friend int& operator=(const int& hora);
 };
-bool operator==(tm& T1, tm& T2);
-bool operator!=(tm& T1, tm& T2);
-bool operator<(tm& derecha, tm& izquierda);
-bool operator>(tm& derecha, tm& izquierda);
+//bool operator==(tm& T1, tm& T2);
+//bool operator!=(tm& T1, tm& T2);
+//bool operator<(tm& derecha, tm& izquierda);
+//bool operator>(tm& derecha, tm& izquierda);

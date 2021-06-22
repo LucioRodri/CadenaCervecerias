@@ -109,8 +109,10 @@ int main() {
 	}*/
 	time->tm_hour = 9;
 	try {
+		bar->setAbierto(true);//Abro el bar
 		for (int i = 0; i < bar->getListaEmpleados()->getCA(); i++)
 			bar->getListaEmpleados()->getItem(i)->setEntrada(time);
+		puntoVenta->setAbierto(true);//Abro el punto de venta
 		for (int i = 0; i < puntoVenta->getListaEmpleados()->getCA(); i++)
 			puntoVenta->getListaEmpleados()->getItem(i)->setEntrada(time);
 	}
@@ -123,10 +125,12 @@ int main() {
 	cout << *empresa;
 	time->tm_hour = 17;
 	try {
+		bar->setAbierto(false);
 		for (int i = 0; i < bar->getListaEmpleados()->getCA(); i++) {
 			bar->getListaEmpleados()->getItem(i)->setEntrada(time);
 			bar->getListaEmpleados()->getItem(i)->CalcularHorasTrabajadas();
 		}
+		puntoVenta->setAbierto(false);
 		for (int i = 0; i < puntoVenta->getListaEmpleados()->getCA(); i++) {
 			puntoVenta->getListaEmpleados()->getItem(i)->setEntrada(time);
 			puntoVenta->getListaEmpleados()->getItem(i)->CalcularHorasTrabajadas();
@@ -143,6 +147,7 @@ int main() {
 	O convendria hacerlo de otra forma?
 	*/
 	//------------------------------Prueba-----------------------------//
+	bool Algo = (*(empresa->getLista()))[1]->getAbierto();
 	//cLista<int>* Numeros = new cLista<int>();
 	//delete Numeros;
 	bar = new Bar(time, "Nombre raro", "Malta");
@@ -179,10 +184,23 @@ void Tick(cLista<cLocal>* lista_locales) {
 	tm* time = localtime(&now);
 	do {
 		for (int i = 0; i < lista_locales->getCA(); i++)
-			lista_locales->getItem(i)->SimularCliente();
+		{
+			try {
+				if ((*lista_locales)[i]->getAbierto())//Reviso que el local este abierto
+				{
+				lista_locales->getItem(i)->SimularCliente();
+				}
+			}
+			catch (exception* error)
+			{
+				cout << error->what()<<endl;
+				delete error;
+				(*lista_locales)[i]->setAbierto(false);//Cierro el local si me quedo sin suministros y el gerente no esta presente
+			}
+		}
 		sleep_for(1s); //lo pusimos en 10 segundos en vez de 1 hora para probarlo
 		time = localtime(&now);
-	} while (time->tm_hour != 22);
+	} while (time->tm_hour != 18);
 }
 ostream& operator<<(ostream& out, Cerveceria& C)
 {

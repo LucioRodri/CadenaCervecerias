@@ -13,7 +13,7 @@ class cMesas;
 class cListaMesas;
 class cLocal
 {
-	friend class Cerveceria;
+	friend class Cerveceria;//Clase friend
 	friend class cEncargado; //el encargado va a usar actualizar suministros de esta clase
 protected:
 	tm* Fecha;
@@ -22,16 +22,17 @@ protected:
 	unsigned int MontoTotal;
 	string Nombre;
 	unsigned int Codigo;
-	static unsigned int Contador;
+	static unsigned int Contador;//Atributo static
 	string Ubicacion;
 	cLista<cEmpleado>* listaEmpleados;//hacerlo con una lista template?
 	cLista<cCerveza>* listaCervezas;
+	bool Abierto;
 public:
 	cLocal(tm* fecha, string nombre, string ubicacion, float litros = 0, unsigned monto = 0);
 	virtual ~cLocal();
 	//segun la cantidad de litros que se restaron por SumarMonto, actualiza la cantidad de barriles para cada elemento de la lista de cervezas
 	virtual void ActualizarSuministros();
-	virtual void SimularCliente()=0;
+	virtual void SimularCliente()=0;//Metodo polimorfico
 	//resta para cada elemento de la lista de cervezas una cantidad de litros
 	void SumarMontoyLitros(cCerveza* cerveza);
 	//void Tick(); //hacerlo en el main, llama a simular cliente de la lista de locales
@@ -41,4 +42,6 @@ public:
 	friend ostream& operator<<(ostream& out, cLocal& L);
 	void imprimir();
 	void ActualizarFecha(tm* fecha);
+	void setAbierto(bool estado) { this->Abierto = estado; };
+	bool getAbierto() { return Abierto; };
 };

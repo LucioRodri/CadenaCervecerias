@@ -27,7 +27,7 @@ void cEncargado::Verificar()
 ostream& operator<<(ostream& out, cEncargado& E)
 {
 	out << (cEmpleado&)E;
-	out << E.getEstadoAnimo() << endl;
+	out <<"\n" << E.getEstadoAnimo() << endl;
 	return out;
 }
 

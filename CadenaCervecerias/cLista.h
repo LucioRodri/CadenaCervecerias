@@ -7,7 +7,7 @@ template<class T>
 class cLista
 {
 protected:
-	T** vector;
+	T** vector;//Puntero doble
 	unsigned int CA, TAM;
 	bool eliminar_lista;
 
@@ -16,13 +16,13 @@ public:
 	~cLista();
 
 	bool AgregarItem(T* item);
-	void operator+(T* item);
+	void operator+(T* item);//Sobrecarga +
 
 	T* Quitar(string clave);
 	T* QuitarenPos(unsigned int pos);
 
 	void Eliminar(string clave);
-	void operator-(string clave);
+	void operator-(string clave);//Sobrecarga -
 
 	void Eliminar(unsigned int pos) {
 
@@ -41,7 +41,7 @@ public:
 
 	void Listar();
 	T* BuscarItem(string clave);
-	T* operator [](unsigned int pos);
+	T* operator [](unsigned int pos);//Sobrecarga []
 	T* getItem(unsigned int pos);
 	string To_String();
 

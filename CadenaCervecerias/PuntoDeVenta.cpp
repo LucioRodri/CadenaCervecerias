@@ -14,7 +14,14 @@ void PuntoDeVenta::SimularCliente()
 	int tipo_cerveza;
 	for (int i = 0; i < cant_clientes; i++) {
 		tipo_cerveza = random(0, listaCervezas->getCA());
-		SumarMontoyLitros(listaCervezas->getItem(tipo_cerveza));
+		try
+		{
+			SumarMontoyLitros(listaCervezas->getItem(tipo_cerveza));
+		}
+		catch (exception* error)
+		{
+			throw error;
+		}
 	}
 	ActualizarSuministros();
 }
