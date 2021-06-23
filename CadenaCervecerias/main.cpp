@@ -88,6 +88,7 @@ int main() {
 		*lMesas + Mesa;
 		Mesa = new cMesas();
 		*lMesas + Mesa;
+		//++(*lMesas);//Asi funciona la sobrecarga
 	}
 	catch(exception* error)
 	{
@@ -141,6 +142,7 @@ int main() {
 		delete ex;
 		cout << error << endl;
 	}
+	//(*(bar->getListaEmpleados()))[1]->CalcularHorasTrabajadas();//Funciona
 	//(bar->getListaEmpleados())[1];Probar despues
 	/*
 	Podemos agregar un metodo polimorfico en cEmpleado que sirva para calcular los sueldos de cada clase de empleado?
@@ -149,8 +151,9 @@ int main() {
 	//------------------------------Prueba-----------------------------//
 	//cLista<int>* Numeros = new cLista<int>();
 	//delete Numeros;
-	bar = new Bar(time, "Nombre raro", "Malta");
-	delete bar;
+	//bar = new Bar(time, "Nombre raro", "Malta");
+	//delete bar;
+	//cCerveza Prueba = *cerveza1;//Asi funciona la sobrecarga del =
 	delete empresa;//Acordarse de cambiar la hora del Tick para que solo lo haga una vez
 	return 0;//Preguntar time
 }
@@ -199,7 +202,7 @@ void Tick(cLista<cLocal>* lista_locales) {
 		}
 		sleep_for(1s); //lo pusimos en 10 segundos en vez de 1 hora para probarlo
 		time = localtime(&now);
-	} while (time->tm_hour != 18);
+	} while (time->tm_hour != 16);
 }
 ostream& operator<<(ostream& out, Cerveceria& C)
 {
