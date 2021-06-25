@@ -36,7 +36,7 @@ void cEmpleado::CalcularHorasTrabajadas()//Le pago por hora, no tengo en cuenta 
 				throw new exception("Esta intentando enganiar al sistema o hay que denunciar a alguien");//Fijarse si dejo la excepcion o la reemplazo con otra cosa
 		}
 	}
-	else if(*HoraEntrada == *HoraSalida)
+	else if(*HoraEntrada != *HoraSalida)
 	{
 		if(HoraSalida->tm_mon==0 &&HoraSalida->tm_mday==1)//Unica posibilidad real
 			HorasTrabajadas = 24 - HoraEntrada->tm_hour + HoraSalida->tm_hour;

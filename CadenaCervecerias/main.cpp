@@ -128,12 +128,12 @@ int main() {
 	try {
 		bar->setAbierto(false);
 		for (int i = 0; i < bar->getListaEmpleados()->getCA(); i++) {
-			bar->getListaEmpleados()->getItem(i)->setEntrada(time);
+			bar->getListaEmpleados()->getItem(i)->setSalida(time);
 			bar->getListaEmpleados()->getItem(i)->CalcularHorasTrabajadas();
 		}
 		puntoVenta->setAbierto(false);
 		for (int i = 0; i < puntoVenta->getListaEmpleados()->getCA(); i++) {
-			puntoVenta->getListaEmpleados()->getItem(i)->setEntrada(time);
+			puntoVenta->getListaEmpleados()->getItem(i)->setSalida(time);
 			puntoVenta->getListaEmpleados()->getItem(i)->CalcularHorasTrabajadas();
 		}
 	}
@@ -202,7 +202,7 @@ void Tick(cLista<cLocal>* lista_locales) {
 		}
 		sleep_for(1s); //lo pusimos en 10 segundos en vez de 1 hora para probarlo
 		time = localtime(&now);
-	} while (time->tm_hour != 16);
+	} while (time->tm_hour != 10);
 }
 ostream& operator<<(ostream& out, Cerveceria& C)
 {
